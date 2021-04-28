@@ -2,12 +2,31 @@ package oop.inheritance.ingenico;
 
 public class IngenicoPrinter {
 
+
+    private static volatile IngenicoPrinter printer;
     /**
      * Prints a message on the current line at the specified horizontal position
      *
-     * @param x       horizontal offset
-     * @param message Message to be printed
+     * @param //x       horizontal offset
+     * @param //message Message to be printed
      */
+
+    private IngenicoPrinter(){}
+
+    public static IngenicoPrinter getPrinter() {
+        if (printer == null)
+        {
+            synchronized (IngenicoPrinter.class)
+            {
+                if (printer == null)
+                {
+                    printer = new IngenicoPrinter();
+                }
+            }
+        }
+        return printer;
+    }
+
     public void print(int x, String message) {
 
     }

@@ -5,11 +5,32 @@ import oop.inheritance.data.TransactionResponse;
 
 public class IngenicoEthernet {
 
+    private static volatile IngenicoEthernet ethernet;
+
     /**
      * Opens a connection using the ethernet device
      *
      * @return true if the connection was successfully opened
      */
+
+    private IngenicoEthernet(){}
+
+    public static IngenicoEthernet getEthernet()
+    {
+        if (ethernet == null)
+        {
+            synchronized (IngenicoEthernet.class)
+            {
+                if (ethernet == null)
+                {
+                    ethernet = new IngenicoEthernet();
+                }
+            }
+        }
+        return ethernet;
+    }
+
+
     public boolean open() {
 
         return true;
